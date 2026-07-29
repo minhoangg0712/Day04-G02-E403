@@ -13,16 +13,16 @@ tools:
       required: [question]
 
   - name: timeline
-    description: "Get recent posts from a specific social account. Use only when the user provides a clear handle/screenname; do not guess a famous account when the handle is missing."
+    description: "Get recent posts from a specific social account. Use only when the user provides a clear handle/screenname; do not guess a famous account when the handle is missing. In multi-turn corrections, use the corrected account only. Common mappings: Sam Altman -> sama; Andrej Karpathy -> karpathy."
     parameters:
       type: object
       properties:
-        screenname: {type: string, default: "", description: "Account handle/screenname, preferably without @. Must come from the user or previous context."}
+        screenname: {type: string, default: "", description: "Account handle/screenname, preferably without @. Must come from the user or previous context; use karpathy for Andrej Karpathy."}
         limit: {type: integer, default: 5, description: "Number of posts to retrieve."}
       required: [screenname]
 
   - name: social_search
-    description: "Search social posts by keyword/topic. Use for requests to find tweets/posts about a topic, not for a specific account timeline."
+    description: "Search social posts by keyword/topic. Use for requests to find tweets/posts about a topic, not for a specific account timeline. Do not use if the user switches away from Twitter/social posts to web/news."
     parameters:
       type: object
       properties:
