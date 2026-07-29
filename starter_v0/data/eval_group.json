@@ -3,5 +3,278 @@
   "dataset_role": "group",
   "description": "Template để NHÓM tự viết đúng 10 case: 5 single-turn dùng query và 5 multi-turn dùng turns. Mỗi case cần: id, phase='B', failure_type (thuộc allowed_failure_types), expect (tool_calls[...] hoặc no_tool=true), và metadata.what_it_tests. File để trống có chủ đích vì mỗi nhóm phải tự thiết kế các case này.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
-}
+  "cases": [
+    {
+      "id": "G01_extract_keywords",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "query": "Phân tích từ khóa từ văn bản sau: OpenAI o1",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "extract_keywords",
+            "args": {
+              "text": "OpenAI o1"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Use of new extract_keywords tool"
+      }
+    },
+    {
+      "id": "G02_papers_routing",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "query": "Tìm 3 bài báo về LLM trên arxiv",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "LLM",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Correctly route to papers tool"
+      }
+    },
+    {
+      "id": "G03_policy_routing",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "query": "Quy định công ty về AI",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "query": "AI"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Route to policy tool"
+      }
+    },
+    {
+      "id": "G04_out_of_scope_cooking",
+      "phase": "B",
+      "failure_type": "out_of_scope",
+      "query": "Dạy nấu ăn",
+      "expect": {
+        "no_tool": true
+      },
+      "metadata": {
+        "what_it_tests": "Out of scope cooking"
+      }
+    },
+    {
+      "id": "G05_clarify_paper_text",
+      "phase": "B",
+      "failure_type": "missing_info",
+      "query": "Trích xuất chữ từ bài báo này",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Clarify missing arxiv_url"
+      }
+    },
+    {
+      "id": "G06_correction_policy",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm bài báo arxiv về bảo mật"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, tìm trong chính sách công ty"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "policy",
+            "args": {
+              "query": "bảo mật"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn correction from arxiv to policy"
+      }
+    },
+    {
+      "id": "G07_switch_from_extract",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Trích xuất từ khóa của văn bản: Mạng xã hội"
+        },
+        {
+          "role": "user",
+          "content": "Thôi tìm bài đăng trên Twitter về chủ đề đó đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Mạng xã hội"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn switch from extract to social_search"
+      }
+    },
+    {
+      "id": "G08_format_digest",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin AI"
+        },
+        {
+          "role": "assistant",
+          "content": "Tôi đã tìm",
+          "tool_calls": [
+            {
+              "id": "call_1",
+              "type": "function",
+              "function": {
+                "name": "lookup",
+                "arguments": "{\"query\": \"AI\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "name": "lookup",
+          "content": "{\"items\": [{\"title\": \"A\", \"url\": \"B\"}]}"
+        },
+        {
+          "role": "user",
+          "content": "Định dạng thành bullets"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "format",
+            "args": {
+              "template": "bullets"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn format after lookup"
+      }
+    },
+    {
+      "id": "G09_confirm_send",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng bài này lên Telegram: Hello"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận chứ?",
+          "tool_calls": [
+            {
+              "id": "call_1",
+              "type": "function",
+              "function": {
+                "name": "clarify",
+                "arguments": "{\"response_type\": \"yes_no\"}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_1",
+          "name": "clarify",
+          "content": "yes"
+        },
+        {
+          "role": "user",
+          "content": "ok đăng đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Hello",
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Multi-turn confirm before send"
+      }
+    },
+    {
+      "id": "G10_parallel_papers_web",
+      "phase": "B",
+      "failure_type": "wrong_boundary",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm bài báo mới nhất về Transformer và tìm thêm tin tức về nó trên web"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "Transformer"
+            }
+          },
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Transformer",
+              "topic": "news"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Parallel tool calls"
+      }
+    }
+  ]

@@ -1,0 +1,58 @@
+[
+  [
+    "M03_correction_handle",
+    [
+      {
+        "role": "user",
+        "content": "Tweet mới nhất của Sam Altman"
+      },
+      {
+        "role": "user",
+        "content": "À nhầm, của Andrej Karpathy"
+      },
+      {
+        "role": "user",
+        "content": "Lấy 3 tweet mới nhất nhé"
+      }
+    ],
+    {
+      "tool_calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "karpathy",
+            "limit": 3
+          }
+        }
+      ]
+    }
+  ],
+  [
+    "M06_switch_tool",
+    [
+      {
+        "role": "user",
+        "content": "Mọi người nói gì về OpenAI trên Twitter?"
+      },
+      {
+        "role": "user",
+        "content": "Bỏ Twitter, chuyển sang tìm trên web tin tức đi"
+      },
+      {
+        "role": "user",
+        "content": "Giữ chủ đề OpenAI"
+      }
+    ],
+    {
+      "tool_calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "topic": "news"
+          }
+        }
+      ]
+    }
+  ]
+]

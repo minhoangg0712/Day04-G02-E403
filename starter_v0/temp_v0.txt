@@ -1,0 +1,42 @@
+[
+  [
+    "R08_out_of_scope",
+    [
+      "expected no tool call"
+    ]
+  ],
+  [
+    "R10_missing_handle",
+    [
+      "missing tool call clarify",
+      "extra tool call timeline"
+    ]
+  ],
+  [
+    "R11_missing_url",
+    [
+      "missing tool call clarify",
+      "extra tool call fetch"
+    ]
+  ],
+  [
+    "R12_confirm_before_send",
+    [
+      "missing tool call clarify",
+      "extra tool call send"
+    ]
+  ],
+  [
+    "R13_parallel_web_and_tweets",
+    [
+      "missing tool call social_search",
+      "extra tool call timeline"
+    ]
+  ],
+  [
+    "R14_out_of_scope_coding",
+    [
+      "expected no tool call"
+    ]
+  ]
+]

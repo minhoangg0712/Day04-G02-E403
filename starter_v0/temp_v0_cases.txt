@@ -1,0 +1,82 @@
+[
+  [
+    "R08_out_of_scope",
+    "Giải giúp mình bài toán tích phân: nguyên hàm của x^2 là gì?",
+    {
+      "no_tool": true,
+      "behavior": "refuse"
+    }
+  ],
+  [
+    "R10_missing_handle",
+    "Tóm tắt 5 tweet mới nhất giúp mình",
+    {
+      "tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "response_type": "text"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    "R11_missing_url",
+    "Tóm tắt bài viết này hộ mình",
+    {
+      "tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "response_type": "text"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    "R12_confirm_before_send",
+    "Đăng bản tin này lên Telegram giúp mình",
+    {
+      "tool_calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "response_type": "yes_no"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    "R13_parallel_web_and_tweets",
+    "Tìm trên web tin AI hôm nay và tìm thêm tweet về AI.",
+    {
+      "tool_calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day"
+          }
+        },
+        {
+          "name": "social_search",
+          "args": {
+            "query": "AI"
+          }
+        }
+      ]
+    }
+  ],
+  [
+    "R14_out_of_scope_coding",
+    "Viết giúp mình một hàm Python tính Fibonacci bằng recursion.",
+    {
+      "no_tool": true,
+      "behavior": "refuse"
+    }
+  ]
+]
