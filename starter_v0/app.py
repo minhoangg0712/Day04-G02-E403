@@ -27,112 +27,111 @@ load_lab_env(ROOT)
 # Professional & Sleek Custom CSS injection
 st.markdown("""
 <style>
-    /* Import Premium Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
-    /* Global Overrides */
     * {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'IBM Plex Sans', sans-serif;
     }
-    
-    /* Hide Streamlit Branding elements */
+
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
-    
-    /* App background */
+
+    /* Nền giấy sáng, hoạ tiết chấm mờ kiểu giấy kẻ ô phòng lab */
     .stApp {
-        background-color: #0B0F17;
-        color: #F3F4F6;
+        background-color: #F6F7F5;
+        background-image: radial-gradient(#D9DDD9 1px, transparent 1px);
+        background-size: 22px 22px;
+        color: #161B22;
     }
 
-    /* Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background-color: #111827 !important;
-        border-right: 1px solid #1F2937;
+        background-color: #FFFFFF !important;
+        border-right: 1px solid #E3E6E1;
     }
-    
-    /* Title and Header Banner */
+
+    /* Header — thẻ tiêu đề kiểu label mẫu vật trong phòng thí nghiệm */
     .studio-header {
-        background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+        background: #FFFFFF;
         padding: 24px 32px;
-        border-radius: 16px;
-        border: 1px solid #312E81;
+        border-radius: 12px;
+        border: 1px solid #E3E6E1;
+        border-left: 5px solid #0F766E;
         margin-bottom: 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 1px 3px rgba(22, 27, 34, 0.06);
     }
     .studio-title-group h1 {
-        font-size: 2.2rem !important;
-        font-weight: 800 !important;
-        background: linear-gradient(90deg, #6366F1, #3B82F6, #10B981);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+        color: #161B22;
         margin: 0;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.02em;
     }
     .studio-title-group p {
-        font-size: 0.95rem;
-        color: #9CA3AF;
+        font-size: 0.9rem;
+        color: #5B6472;
         margin: 4px 0 0 0;
     }
-    
-    /* Metric Cards styling */
+
     .metric-badge {
-        background: rgba(31, 41, 55, 0.5);
-        border: 1px solid #374151;
-        border-radius: 8px;
+        background: #F1F4F1;
+        border: 1px solid #D9DDD9;
+        border-radius: 6px;
         padding: 6px 12px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 600;
-        color: #E5E7EB;
+        color: #14532D;
         display: inline-flex;
         align-items: center;
         gap: 6px;
+        font-family: 'IBM Plex Mono', monospace;
     }
-    
-    /* Chat Bubbles custom design */
+
+    /* Chat bubbles */
     .chat-bubble-user {
-        background-color: #2563EB;
+        background-color: #0F766E;
         color: white;
         padding: 14px 18px;
-        border-radius: 18px 18px 2px 18px;
+        border-radius: 14px 14px 2px 14px;
         margin: 12px 0 12px auto;
         max-width: 75%;
         font-size: 0.95rem;
-        line-height: 1.5;
-        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        line-height: 1.55;
+        box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
     }
     .chat-bubble-agent {
-        background-color: #1F2937;
-        color: #F3F4F6;
+        background-color: #FFFFFF;
+        color: #161B22;
         padding: 16px 20px;
-        border-radius: 18px 18px 18px 2px;
+        border-radius: 14px 14px 14px 2px;
         margin: 12px auto 12px 0;
         max-width: 85%;
         font-size: 0.95rem;
-        line-height: 1.5;
-        border: 1px solid #374151;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        line-height: 1.55;
+        border: 1px solid #E3E6E1;
+        box-shadow: 0 1px 4px rgba(22, 27, 34, 0.05);
     }
-    
-    /* Dev Console Timeline */
+
+    /* Bảng điều khiển tool trace — kiểu "dải mẫu vật" phòng lab */
     .dev-console-header {
-        font-size: 0.85rem;
-        color: #6B7280;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 0.8rem;
+        color: #5B6472;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         margin-top: 16px;
-        margin-bottom: 8px;
-        font-weight: 700;
+        margin-bottom: 10px;
+        font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
     }
     .timeline-item {
-        border-left: 2px solid #4F46E5;
+        border-left: 2px dashed #C7CCC6;
         margin-left: 8px;
         padding-left: 20px;
         position: relative;
@@ -146,42 +145,40 @@ st.markdown("""
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background-color: #10B981;
-        border: 2px solid #0B0F17;
+        background-color: #0F766E;
+        border: 2px solid #F6F7F5;
     }
     .timeline-item.error::before {
-        background-color: #EF4444;
+        background-color: #DC2626;
     }
     .tool-box {
-        background: #111827;
-        border: 1px solid #1F2937;
-        border-radius: 8px;
-        padding: 12px 16px;
+        background: #FFFFFF;
+        border: 1px solid #E3E6E1;
+        border-radius: 10px;
+        padding: 14px 18px;
     }
     .tool-meta {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.85rem;
-        color: #6366F1;
-        font-weight: 700;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.83rem;
+        color: #0F766E;
+        font-weight: 600;
         display: flex;
         justify-content: space-between;
     }
     .tool-meta-error {
-        color: #EF4444 !important;
+        color: #DC2626 !important;
     }
-    
-    /* Code Viewer Styling */
+
     pre, code {
-        font-family: 'JetBrains Mono', monospace !important;
-        font-size: 0.85rem !important;
-        background-color: #030712 !important;
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-size: 0.83rem !important;
+        background-color: #F1F4F1 !important;
         border-radius: 6px !important;
-        border: 1px solid #1F2937 !important;
-        color: #A7F3D0 !important;
+        border: 1px solid #E3E6E1 !important;
+        color: #14532D !important;
     }
 </style>
 """, unsafe_allow_html=True)
-
 # ----------------- SIDEBAR CONFIGURATIONS -----------------
 st.sidebar.markdown("<div style='padding: 10px 0;'><h2 style='color:#6366F1; font-weight:800; margin:0;'>AGENT STUDIO</h2><p style='color:#6B7280; font-size:0.8rem; margin:0;'>Version Control & Hyperparameters</p></div>", unsafe_allow_html=True)
 
